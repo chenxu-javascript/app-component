@@ -60,7 +60,7 @@ var Top = /*#__PURE__*/function (_React$Component) {
         onPress: this.props.close
       }) : null, /*#__PURE__*/React.createElement("div", {
         className: "title"
-      }, this.props.title));
+      }, this.props.title), this.props.children);
     }
   }]);
 

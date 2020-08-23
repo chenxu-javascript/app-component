@@ -23,6 +23,7 @@ class Top extends React.Component {
           return <TopMenu key={index} {...menu} />;
         })} */}
         <div className="title">{this.props.title}</div>
+        {this.props.children}
         {/* {_.map(this.props.rightMenus, (menu, index) => {
           return <TopMenu key={index} {...menu} />;
         })} */}
