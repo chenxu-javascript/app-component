@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import classnames from "classnames";
 
 var Body = function Body(props) {
@@ -10,4 +10,4 @@ var Body = function Body(props) {
   }, children);
 };
 
-export default Body;
+export default /*#__PURE__*/forwardRef(Body);
