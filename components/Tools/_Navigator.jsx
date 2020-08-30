@@ -3,7 +3,20 @@ import moment from "moment";
 import { history } from "umi";
 import _ from "lodash";
 import Layout from "../Layouts/Layout";
+function isAndroid() {
+  var u = navigator.userAgent;
+  if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
+    if (window.ShowFitness !== undefined) return true;
+  }
+  return false;
+}
 
+const classNameIos = isAndroid()
+  ? "toft-page-container"
+  : "toft-page-container  slide-in-left";
+const classNameOutIos = isAndroid()
+    ? "toft-page-container"
+    : "toft-page-container slide-out-right";
 export default {
   routerStack: [],
   renderPage: null,
@@ -53,7 +66,7 @@ export default {
     const ts = moment().format("YYYYMMDDHHmmssSSS");
 
     pageContainer.id = ts;
-    pageContainer.className = "toft-page-container slide-in-left";
+    pageContainer.className = classNameIos;
 
     let pageComponent = React.cloneElement(React.cloneElement(<Layout />), {
       title,
@@ -70,7 +83,7 @@ export default {
     this.renderPage &&
       this.renderPage(
         ts,
-        <div id={ts} className="toft-page-container slide-in-left">
+        <div id={ts} className={classNameIos}>
           {pageComponent}
         </div>
       );
@@ -117,7 +130,7 @@ export default {
   removeElement(elementId, callback) {
     const removeElement = document.getElementById(elementId);
     if (!removeElement) return;
-    removeElement.className = "toft-page-container slide-out-right";
+    removeElement.className = classNameOutIos;
     setTimeout(() => {
       callback();
     }, 240);
@@ -127,7 +140,7 @@ export default {
     const pageContainer = document.createElement("div");
     const ts = moment().format("YYYYMMDDHHmmssSSS");
     pageContainer.id = ts;
-    pageContainer.className = "toft-page-container slide-in-left";
+    pageContainer.className = classNameIos;
     let pageComponent = React.cloneElement(React.cloneElement(<Layout />), {
       title,
       component,
@@ -142,7 +155,7 @@ export default {
     this.renderPage &&
       this.renderPage(
         ts,
-        <div id={ts} className="toft-page-container slide-in-left">
+        <div id={ts} className={classNameIos}>
           {pageComponent}
         </div>
       );

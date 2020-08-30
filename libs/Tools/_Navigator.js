@@ -2,11 +2,25 @@ import "core-js/modules/es6.array.map";
 import "core-js/modules/es6.array.find";
 import "core-js/modules/es6.array.filter";
 import "core-js/modules/es6.regexp.replace";
+import "core-js/modules/es6.array.index-of";
 import React from "react";
 import moment from "moment";
 import { history } from "umi";
 import _ from "lodash";
 import Layout from "../Layouts/Layout";
+
+function isAndroid() {
+  var u = navigator.userAgent;
+
+  if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
+    if (window.ShowFitness !== undefined) return true;
+  }
+
+  return false;
+}
+
+var classNameIos = isAndroid() ? "toft-page-container" : "toft-page-container  slide-in-left";
+var classNameOutIos = isAndroid() ? "toft-page-container" : "toft-page-container slide-out-right";
 export default {
   routerStack: [],
   renderPage: null,
@@ -58,7 +72,7 @@ export default {
     var pageContainer = document.createElement("div");
     var ts = moment().format("YYYYMMDDHHmmssSSS");
     pageContainer.id = ts;
-    pageContainer.className = "toft-page-container slide-in-left";
+    pageContainer.className = classNameIos;
     var pageComponent = /*#__PURE__*/React.cloneElement( /*#__PURE__*/React.cloneElement( /*#__PURE__*/React.createElement(Layout, null)), {
       title: title,
       component: component,
@@ -72,7 +86,7 @@ export default {
     });
     this.renderPage && this.renderPage(ts, /*#__PURE__*/React.createElement("div", {
       id: ts,
-      className: "toft-page-container slide-in-left"
+      className: classNameIos
     }, pageComponent));
     var item = this.routerStack.pop();
     this.pushStack(ts, title);
@@ -118,7 +132,7 @@ export default {
   removeElement: function removeElement(elementId, callback) {
     var removeElement = document.getElementById(elementId);
     if (!removeElement) return;
-    removeElement.className = "toft-page-container slide-out-right";
+    removeElement.className = classNameOutIos;
     setTimeout(function () {
       callback();
     }, 240);
@@ -127,7 +141,7 @@ export default {
     var pageContainer = document.createElement("div");
     var ts = moment().format("YYYYMMDDHHmmssSSS");
     pageContainer.id = ts;
-    pageContainer.className = "toft-page-container slide-in-left";
+    pageContainer.className = classNameIos;
     var pageComponent = /*#__PURE__*/React.cloneElement( /*#__PURE__*/React.cloneElement( /*#__PURE__*/React.createElement(Layout, null)), {
       title: title,
       component: component,
@@ -141,7 +155,7 @@ export default {
     });
     this.renderPage && this.renderPage(ts, /*#__PURE__*/React.createElement("div", {
       id: ts,
-      className: "toft-page-container slide-in-left"
+      className: classNameIos
     }, pageComponent));
     this.pushStack(ts, title);
     history.push({
